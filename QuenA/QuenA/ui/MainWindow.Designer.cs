@@ -169,10 +169,6 @@
             this.removeQuestionButton.UseVisualStyleBackColor = true;
             this.removeQuestionButton.Click += new System.EventHandler(this.removeQuestionButton_Click);
             // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.Filter = "\"Binary Files (*.bin)|*.bin\"";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {

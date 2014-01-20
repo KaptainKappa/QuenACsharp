@@ -14,12 +14,15 @@ using System.IO;
 
 namespace QuenA.ui
 {
+    /// <summary>
+    /// The main window of the application.  From here, one can create new subjects, save/open existing ones, and perform actions relating to the currently loaded subject.
+    /// </summary>
     public partial class MainWindow : Form, IObserver
     {
         private static MainWindow instance = new MainWindow();
         public static MainWindow Instance { get { return instance; } }
 
-        //Collection of all card of the currently loaded subject.
+        //Collection of all cards of the currently loaded subject.
         private Dictionary<string, QuestionCard> cardMap = new Dictionary<string, QuestionCard>();
         public List<string> FlavourTextList
         {
@@ -33,10 +36,14 @@ namespace QuenA.ui
         {
             InitializeComponent();
             currentlyLoadedSubjectLabel.Text = "";
-            createBlankSubject();
+            createBlankSubject();     
+            //listen for any subject-related actions being performed
             SubjectControl.attach(this);
             questionList.DataSource = FlavourTextList;
             RefreshWindow();
+
+            openFileDialog.Filter = "QuenA Files (*.que) | *.que";
+            saveFileDialog.Filter = "QuenA Files (*.que) | *.que";
         }
 
         /// <summary>
@@ -47,13 +54,21 @@ namespace QuenA.ui
             SubjectControl.detach(this);
         }
 
-
-
+        /// <summary>
+        /// Brings up the window to create a new question card and add it to the current subject.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addQuestionButton_Click(object sender, EventArgs e)
         {
             new AddQuestion().Show();
         }
 
+        /// <summary>
+        /// Brings up a window to edit the selected question.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editQuestionButton_Click(object sender, EventArgs e)
         {
             string selectedCard = (string)questionList.SelectedItem;
@@ -74,12 +89,20 @@ namespace QuenA.ui
 
         }
 
+        /// <summary>
+        /// Removes the selected question card from the currently loaded subject.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removeQuestionButton_Click(object sender, EventArgs e)
         {
             string selectedCard = (string)questionList.SelectedItem;
             if (selectedCard != null)
             {
-                SubjectControl.removeQuestionCard(cardMap[selectedCard]);
+                if (MessageBox.Show("This will remove the question card for good.  Are you sure?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    SubjectControl.removeQuestionCard(cardMap[selectedCard]);
+                }
             }
             else
             {
@@ -87,6 +110,11 @@ namespace QuenA.ui
             }
         }
 
+        /// <summary>
+        /// Views the question, with the answer hidden until the user clicks a button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void viewButton_Click(object sender, EventArgs e)
         {
             string selectedItem = (string)questionList.SelectedItem;
@@ -101,6 +129,11 @@ namespace QuenA.ui
             }
         }
 
+        /// <summary>
+        /// Creates a blank subject and makes it the currently loaded subject.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newTopicToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (RuntimeData.UnsavedChanges == true)
@@ -116,6 +149,11 @@ namespace QuenA.ui
             }
         }
 
+        /// <summary>
+        /// Shows an OpenFileDialog box, and attempts to load the file selected by the user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openTopicToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -127,9 +165,18 @@ namespace QuenA.ui
             }
         }
 
-
+        /// <summary>
+        /// Save the currently loaded subject ot the place where it was saved last.  If a new subject (i.e. hasn't been saved anywhere yet), acts as if the "Save Topic As..." item was clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveTopicToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (RuntimeData.CurrentlyLoadedSubjectFilePath == null) {
+                saveTopicAsToolStripMenuItem_Click(sender, e);
+                return;
+            }
+
             if (RuntimeData.UnsavedChanges == true)
             {
                 if (promptUnsavedChanges())
@@ -143,6 +190,11 @@ namespace QuenA.ui
             }
         }
 
+        /// <summary>
+        /// Show a SaveFileDialog box, and save the currently loaded subject to the file path chosen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveTopicAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
@@ -151,6 +203,11 @@ namespace QuenA.ui
             }
         }
 
+        /// <summary>
+        /// Exits the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -188,7 +245,7 @@ namespace QuenA.ui
         /// <returns>true if the "Yes" option has been clicked, false for anything else</returns>
         private bool promptUnsavedChanges()
         {
-            if (MessageBox.Show("The current project has unsaved changes.  Continue?", "Confirm", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("The current project has unsaved changes.  Continue?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 return true;
             }
@@ -212,7 +269,16 @@ namespace QuenA.ui
         public void update()
         {
             //set title bar to be the new project
-            this.Text = RuntimeData.CurrentlyLoadedSubject.SubjectName;
+            string subjectPath = RuntimeData.CurrentlyLoadedSubject.SubjectName;
+            //split the file path
+            string[] splitPath = subjectPath.Split('\\');
+            //get the file name and extension
+            string fileNameAndExt = splitPath[splitPath.Length - 1];
+            //remove extension
+            string fileName = fileNameAndExt.Split('.')[0];
+            //set file name as title 
+            this.Text = fileName;
+
             if (RuntimeData.UnsavedChanges)
             {
                 this.Text += "*";
