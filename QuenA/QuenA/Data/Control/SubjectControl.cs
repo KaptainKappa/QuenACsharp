@@ -10,24 +10,15 @@ using System.Threading.Tasks;
 
 namespace QuenA.Data.Control
 {
+    /// <summary>
+    /// Class to handle all commands by the user interface to interact with subjects in some form.
+    /// </summary>
     class SubjectControl {       
 
 
         //list of all objects observing runtime data in one way or another
         private static List<IObserver> observers = new List<IObserver>();
         private static MainWindow MainWindow { get { return MainWindow.Instance; } }
-
-        /*
-        /// <summary>
-        /// Ensures that the mainWindow reference is set to the singleton MainWindow object, and if not set to it, makes it so.
-        /// </summary>
-        private static void verifyMainWindowNotNull()
-        {
-            if (MainWindow == null) {
-                MainWindow = MainWindow.Instance;
-            }
-        }
-         */
 
         /// <summary>
         /// Creates a blank subject and loads it into memory, replacing the currently loaded subject.
@@ -46,7 +37,6 @@ namespace QuenA.Data.Control
         /// <param name="filePath">The file path of the subject to be loaded.</param>
         public static void loadSubject(string filePath)
         {
-           //verifyMainWindowNotNull();
             Subject subjectToLoad = SubjectFileIO.loadSubject(filePath);
             RuntimeData.CurrentlyLoadedSubject = subjectToLoad;
             RuntimeData.CurrentlyLoadedSubjectFilePath = filePath;
@@ -55,6 +45,9 @@ namespace QuenA.Data.Control
             notify();
         }
 
+        /// <summary>
+        /// Saves a subject to the location it was opened from.
+        /// </summary>
         public static void saveSubject() 
         {
             if (RuntimeData.CurrentlyLoadedSubjectFilePath != null)
@@ -63,25 +56,41 @@ namespace QuenA.Data.Control
             }
         }
 
+        /// <summary>
+        /// Saves a subject to a specified location in the file system
+        /// </summary>
+        /// <param name="filePath">The full path of the location of the file to save.</param>
         public static void saveSubject(string filePath)
         {
+            string[] splitFilePath = filePath.Split('/');
+            //get name of file, without path (e.g. "Sofware Engineering.bin")
+            string fileName = splitFilePath[splitFilePath.Length - 1];
+            //set file name as name of the project
+            RuntimeData.CurrentlyLoadedSubject.SubjectName = fileName;
+
             SubjectFileIO.saveSubject(RuntimeData.CurrentlyLoadedSubject, filePath);
             RuntimeData.UnsavedChanges = false;
             notify();
         }
 
+        /// <summary>
+        /// Adds a QuestionCard to the currently loaded subject.
+        /// </summary>
+        /// <param name="card">The QuestionCard object to add.</param>
         public static void addQuestionCard(QuestionCard card) 
         {
-            //verifyMainWindowNotNull();
             RuntimeData.CurrentlyLoadedSubject.addCard(card);
             MainWindow.addToCardMap(card);
             RuntimeData.UnsavedChanges = true;
             notify();
         }
 
+        /// <summary>
+        /// Removes a QuesttionCard from the currently loaded subject.
+        /// </summary>
+        /// <param name="card">The QuestionCard object to remove.</param>
         public static void removeQuestionCard(QuestionCard card)
         {
-            //verifyMainWindowNotNull();
             RuntimeData.CurrentlyLoadedSubject.removeCard(card);
             MainWindow.removeFromCardMap(card);
             RuntimeData.UnsavedChanges = true;
@@ -89,10 +98,14 @@ namespace QuenA.Data.Control
 
         }
 
+        /// <summary>
+        /// Swaps one question card in the currently loaded subject for another.
+        /// </summary>
+        /// <param name="card">The QuestionCard object to add.</param>
         public static void changeQuestionCard(QuestionCard oldCard, QuestionCard newCard)
         {
-            //verifyMainWindowNotNull();
-
+            //NB: The methods addQuestionCard() and removeQuestionCard() are not called because this would result in notify() being called twice, slowing the operation down.
+            
             //remove the old card from the list.
             RuntimeData.CurrentlyLoadedSubject.removeCard(oldCard);
             MainWindow.removeFromCardMap(oldCard);
@@ -105,6 +118,11 @@ namespace QuenA.Data.Control
             notify();
         }
 
+        /// <summary>
+        /// Make the IObserver passed as a parameter an observer of this object.
+        /// </summary>
+        /// <param name="obs">The object that wishes to observe this class.</param>
+        /// <returns>true if object was successfully attached, false otherwise.</returns>
         public static bool attach(IObserver obs)
         {
             if (observers.Contains(obs))
@@ -117,7 +135,11 @@ namespace QuenA.Data.Control
                 return true;
             }
         }
-
+        /// <summary>
+        /// Remove the IObserver object passed as parameter from this class's list of observers.
+        /// </summary>
+        /// <param name="obs">The object that wishes to no longer observe this class.</param>
+        /// <returns>true if object was successfully detached, false otherwise.</returns>
         public static bool detach(IObserver obs)
         {
             if (observers.Contains(obs))
@@ -131,6 +153,9 @@ namespace QuenA.Data.Control
             }
         }
 
+        /// <summary>
+        /// Notifies all observers that an action has been taken by this class and data may have been changed, therefore all observers should update their relevant data. 
+        /// </summary>
         private static void notify()
         {
             foreach (IObserver obs in observers)
