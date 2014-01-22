@@ -15,22 +15,28 @@ using QuenA.Data.Control;
 
 namespace QuenA.ui
 {
+    /// <summary>
+    /// This form will show if a question card is to be added or edited.  It contains three RichTextBox instances - one for the "question", one for the "answer", and one (optional) for any acknowledgements, such as references.
+    /// </summary>
     public partial class AddQuestion : Form
     {
         //Whether an existing question is being edited or not.
-        private QuestionCard editingQuestion; 
-        
+        private QuestionCard editingQuestion;
+
         //The last box that had input focus.
         private RichTextBox lastFocusedBox;
 
+        //Create a new AddQuestion box with blank text fields, i.e. creating a new question card.
         public AddQuestion()
         {
             InitializeComponent();
             editingQuestion = null;
-           
+
         }
 
-        public AddQuestion(QuestionCard card) {
+        //Create a new AddQuestion box with text field equal to the question card passed as parameter, i.e. editing an existing card
+        public AddQuestion(QuestionCard card)
+        {
             InitializeComponent();
             questionText.Rtf = card.QuestionText;
             answerText.Rtf = card.AnswerText;
@@ -43,7 +49,7 @@ namespace QuenA.ui
         /// </summary>
         /// <param name="sender">The clicked button</param>
         /// <param name="e"></param>
-        private void boldTextButton_Click(object sender, EventArgs e)
+        private void boldButton_Click(object sender, EventArgs e)
         {
             changeFontStyle(lastFocusedBox, FontStyle.Bold);
         }
@@ -151,15 +157,11 @@ namespace QuenA.ui
 
 
 
-        //EVENT HANDLERS END HERE.
+        //EVENT HANDLERS END HERE.      
 
 
 
 
-
-
-
-       
 
         /// <summary>
         /// This method will be called whenever a RichTextBox (and only a RichTextBox) enters input focus.  
@@ -167,11 +169,12 @@ namespace QuenA.ui
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void changeFocusedBox(object sender, EventArgs e) 
+        private void changeFocusedBox(object sender, EventArgs e)
         {
             //cast the sender to a RichTextBox
             RichTextBox senderBox = sender as RichTextBox;
-            if (senderBox != null){
+            if (senderBox != null)
+            {
                 lastFocusedBox = senderBox;
             }
         }
@@ -181,7 +184,8 @@ namespace QuenA.ui
         /// </summary>
         /// <param name="textBox">RichTextBox that the change will take place in.</param>
         /// <param name="style">Style attribute to change to (bold, italics, underline)</param>
-        private void changeFontStyle(RichTextBox textBox, FontStyle style) {
+        private void changeFontStyle(RichTextBox textBox, FontStyle style)
+        {
             if (textBox != null)
             {
                 //check that text acutally has been selected
@@ -226,9 +230,15 @@ namespace QuenA.ui
             }
         }
 
-        private void changeTextColour(RichTextBox textBox, Color newColour) 
+        /// <summary>
+        /// Change the colour of the selected text in the text box passed as parameter.
+        /// </summary>
+        /// <param name="textBox">The text box contain the text to be recoloured.</param>
+        /// <param name="newColour">The colour that the selected text shall be.</param>
+        private void changeTextColour(RichTextBox textBox, Color newColour)
         {
-            if (textBox != null) {
+            if (textBox != null)
+            {
                 //check that text acutally has been selected
                 if (textBox.SelectionLength > 0)
                 {
@@ -254,10 +264,16 @@ namespace QuenA.ui
             }
         }
 
-        private void changeHighlightColour(RichTextBox textBox, Color newColour) {
+        /// <summary>
+        /// Change the colour of the highlight of the selected text in the text box passed as parameter.
+        /// </summary>
+        /// <param name="textBox">The text box contain the text to be recoloured.</param>
+        /// <param name="newColour">The colour that the selected text highlight shall be.</param>
+        private void changeHighlightColour(RichTextBox textBox, Color newColour)
+        {
             if (textBox != null)
             {
-                 //check that text acutally has been selected
+                //check that text acutally has been selected
                 if (textBox.SelectionLength > 0)
                 {
                     //save the selection start and length for later recall
@@ -285,7 +301,8 @@ namespace QuenA.ui
         /// <summary>
         /// Adds the newly created question to the currently loaded subject.
         /// </summary>
-        private void addNewQuestion() {
+        private void addNewQuestion()
+        {
 
             Debug.Assert(editingQuestion == null); //confirm that user wants to add a new question and not edit an existing one
 
@@ -307,7 +324,8 @@ namespace QuenA.ui
         /// <summary>
         /// Finalises the changes for the question being edited.
         /// </summary>
-        private void editExistingQuestion() {
+        private void editExistingQuestion()
+        {
 
             Debug.Assert(editingQuestion != null); //confirm that user wants to edit an existing question and not add a new one
 
@@ -324,6 +342,38 @@ namespace QuenA.ui
 
         }
 
- 
+        /// <summary>
+        /// Support for shortcut keys within the text boxes.  If a key combination is pressed (CTRL + B, etc), get what keys are pressed and simulates the clicking of a button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddQuestion_KeyDown(object sender, KeyEventArgs e)
+        {
+            //check for control key being pressed
+            if (e.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    //CTRL + B - Bold
+                    case Keys.B:
+                        boldButton_Click(boldButton, e);
+                        break;
+                    //CTRL + I - Italics
+                    case Keys.I:
+                        italicsButton_Click(italicsButton, e);
+                        //suppress the default behaviour of CTRL+I (inserting a TAB)
+                        e.SuppressKeyPress = true;
+                        break;
+                    //CTRL + U - Underline
+                    case Keys.U:
+                        underlineButton_Click(underlineButton, e);
+                        break;
+                }
+            }
+        }
+
+
+
+
     }
 }

@@ -35,7 +35,7 @@
             this.formattingBox = new System.Windows.Forms.GroupBox();
             this.underlineButton = new System.Windows.Forms.Button();
             this.italicsButton = new System.Windows.Forms.Button();
-            this.boldTextButton = new System.Windows.Forms.Button();
+            this.boldButton = new System.Windows.Forms.Button();
             this.textHighlightBox = new System.Windows.Forms.Panel();
             this.highlightColourRadio = new System.Windows.Forms.RadioButton();
             this.textColourRadio = new System.Windows.Forms.RadioButton();
@@ -105,7 +105,7 @@
             // 
             this.formattingBox.Controls.Add(this.underlineButton);
             this.formattingBox.Controls.Add(this.italicsButton);
-            this.formattingBox.Controls.Add(this.boldTextButton);
+            this.formattingBox.Controls.Add(this.boldButton);
             this.formattingBox.Controls.Add(this.textHighlightBox);
             this.formattingBox.Controls.Add(this.colourBox);
             this.formattingBox.Location = new System.Drawing.Point(567, 12);
@@ -137,16 +137,16 @@
             this.italicsButton.UseVisualStyleBackColor = true;
             this.italicsButton.Click += new System.EventHandler(this.italicsButton_Click);
             // 
-            // boldTextButton
+            // boldButton
             // 
-            this.boldTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.boldTextButton.Location = new System.Drawing.Point(6, 16);
-            this.boldTextButton.Name = "boldTextButton";
-            this.boldTextButton.Size = new System.Drawing.Size(75, 23);
-            this.boldTextButton.TabIndex = 8;
-            this.boldTextButton.Text = "Bold";
-            this.boldTextButton.UseVisualStyleBackColor = true;
-            this.boldTextButton.Click += new System.EventHandler(this.boldTextButton_Click);
+            this.boldButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.boldButton.Location = new System.Drawing.Point(6, 16);
+            this.boldButton.Name = "boldButton";
+            this.boldButton.Size = new System.Drawing.Size(75, 23);
+            this.boldButton.TabIndex = 8;
+            this.boldButton.Text = "Bold";
+            this.boldButton.UseVisualStyleBackColor = true;
+            this.boldButton.Click += new System.EventHandler(this.boldButton_Click);
             // 
             // textHighlightBox
             // 
@@ -321,8 +321,10 @@
             this.Controls.Add(this.formattingBox);
             this.Controls.Add(this.answerBox);
             this.Controls.Add(this.questionBox);
+            this.KeyPreview = true;
             this.Name = "AddQuestion";
             this.Text = "Add a Question";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddQuestion_KeyDown);
             this.questionBox.ResumeLayout(false);
             this.answerBox.ResumeLayout(false);
             this.formattingBox.ResumeLayout(false);
@@ -357,7 +359,7 @@
         private System.Windows.Forms.RichTextBox acknowledgmentsText;
         private System.Windows.Forms.Button underlineButton;
         private System.Windows.Forms.Button italicsButton;
-        private System.Windows.Forms.Button boldTextButton;
+        private System.Windows.Forms.Button boldButton;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Button whiteColourButton;
     }
