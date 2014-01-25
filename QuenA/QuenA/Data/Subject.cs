@@ -41,24 +41,12 @@ namespace QuenA.Data
         }
 
         /// <summary>
-        /// Check for the presence of a card in tis subject
+        /// Check for the presence of a card in this subject.
         /// </summary>
         /// <param name="card">Card to check for</param>
         /// <returns>true if present in the subject, false if not</returns>
         public bool checkForCard(QuestionCard card) {
             return cards.Contains(card);
-        }
-
-        /// <summary>
-        /// Return the string representations of all question cards in this subject.
-        /// </summary>
-        public string toString() {
-            string output = "";
-            foreach (QuestionCard qCard in cards){
-                output += qCard.toString();
-                output += "\n\n";
-            }
-            return output;
         }
 
     }

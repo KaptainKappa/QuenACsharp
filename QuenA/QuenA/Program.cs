@@ -24,12 +24,7 @@ namespace QuenA
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(MainWindow.Instance);
-
         }
-
-       
-
-
       
     }
 }
