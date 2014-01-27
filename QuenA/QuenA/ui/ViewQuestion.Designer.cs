@@ -29,23 +29,20 @@
         private void InitializeComponent()
         {
             this.questionBox = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBoxQuestion = new System.Windows.Forms.PictureBox();
             this.questionText = new System.Windows.Forms.RichTextBox();
             this.acknowledgementsBox = new System.Windows.Forms.GroupBox();
             this.acknowledgmentsText = new System.Windows.Forms.RichTextBox();
             this.viewAnswerButton = new System.Windows.Forms.Button();
-            this.pictureBoxQuestion = new System.Windows.Forms.PictureBox();
-            this.splitContainerQuestion = new System.Windows.Forms.SplitContainer();
             this.answerBox = new System.Windows.Forms.GroupBox();
             this.splitContainerAnswer = new System.Windows.Forms.SplitContainer();
             this.answerText = new System.Windows.Forms.RichTextBox();
             this.pictureBoxAnswer = new System.Windows.Forms.PictureBox();
             this.questionBox.SuspendLayout();
-            this.acknowledgementsBox.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQuestion)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerQuestion)).BeginInit();
-            this.splitContainerQuestion.Panel1.SuspendLayout();
-            this.splitContainerQuestion.Panel2.SuspendLayout();
-            this.splitContainerQuestion.SuspendLayout();
+            this.acknowledgementsBox.SuspendLayout();
             this.answerBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerAnswer)).BeginInit();
             this.splitContainerAnswer.Panel1.SuspendLayout();
@@ -56,7 +53,7 @@
             // 
             // questionBox
             // 
-            this.questionBox.Controls.Add(this.splitContainerQuestion);
+            this.questionBox.Controls.Add(this.tableLayoutPanel1);
             this.questionBox.Location = new System.Drawing.Point(12, 12);
             this.questionBox.Name = "questionBox";
             this.questionBox.Size = new System.Drawing.Size(768, 169);
@@ -64,14 +61,38 @@
             this.questionBox.TabStop = false;
             this.questionBox.Text = "Question";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.pictureBoxQuestion, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.questionText, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 150);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // pictureBoxQuestion
+            // 
+            this.pictureBoxQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBoxQuestion.Location = new System.Drawing.Point(609, 3);
+            this.pictureBoxQuestion.Name = "pictureBoxQuestion";
+            this.pictureBoxQuestion.Size = new System.Drawing.Size(150, 144);
+            this.pictureBoxQuestion.TabIndex = 6;
+            this.pictureBoxQuestion.TabStop = false;
+            this.pictureBoxQuestion.Click += new System.EventHandler(this.pictureBox_Click);
+            // 
             // questionText
             // 
-            this.questionText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.questionText.Location = new System.Drawing.Point(0, 0);
+            this.questionText.Location = new System.Drawing.Point(3, 3);
             this.questionText.MinimumSize = new System.Drawing.Size(4, 20);
             this.questionText.Name = "questionText";
             this.questionText.ReadOnly = true;
-            this.questionText.Size = new System.Drawing.Size(608, 150);
+            this.questionText.Size = new System.Drawing.Size(600, 144);
             this.questionText.TabIndex = 1;
             this.questionText.Text = "";
             // 
@@ -104,32 +125,6 @@
             this.viewAnswerButton.Text = "View Answer";
             this.viewAnswerButton.UseVisualStyleBackColor = true;
             this.viewAnswerButton.Click += new System.EventHandler(this.viewAnswerButton_Click_1);
-            // 
-            // pictureBoxQuestion
-            // 
-            this.pictureBoxQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxQuestion.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxQuestion.Name = "pictureBoxQuestion";
-            this.pictureBoxQuestion.Size = new System.Drawing.Size(150, 150);
-            this.pictureBoxQuestion.TabIndex = 6;
-            this.pictureBoxQuestion.TabStop = false;
-            // 
-            // splitContainerQuestion
-            // 
-            this.splitContainerQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerQuestion.Location = new System.Drawing.Point(3, 16);
-            this.splitContainerQuestion.Name = "splitContainerQuestion";
-            // 
-            // splitContainerQuestion.Panel1
-            // 
-            this.splitContainerQuestion.Panel1.Controls.Add(this.questionText);
-            // 
-            // splitContainerQuestion.Panel2
-            // 
-            this.splitContainerQuestion.Panel2.Controls.Add(this.pictureBoxQuestion);
-            this.splitContainerQuestion.Size = new System.Drawing.Size(762, 150);
-            this.splitContainerQuestion.SplitterDistance = 608;
-            this.splitContainerQuestion.TabIndex = 2;
             // 
             // answerBox
             // 
@@ -171,18 +166,19 @@
             // 
             // pictureBoxAnswer
             // 
-            this.pictureBoxAnswer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBoxAnswer.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxAnswer.Name = "pictureBoxAnswer";
             this.pictureBoxAnswer.Size = new System.Drawing.Size(150, 150);
             this.pictureBoxAnswer.TabIndex = 6;
             this.pictureBoxAnswer.TabStop = false;
+            this.pictureBoxAnswer.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // ViewQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 447);
+            this.ClientSize = new System.Drawing.Size(796, 442);
             this.Controls.Add(this.answerBox);
             this.Controls.Add(this.viewAnswerButton);
             this.Controls.Add(this.acknowledgementsBox);
@@ -191,12 +187,9 @@
             this.MinimizeBox = false;
             this.Name = "ViewQuestion";
             this.questionBox.ResumeLayout(false);
-            this.acknowledgementsBox.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQuestion)).EndInit();
-            this.splitContainerQuestion.Panel1.ResumeLayout(false);
-            this.splitContainerQuestion.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerQuestion)).EndInit();
-            this.splitContainerQuestion.ResumeLayout(false);
+            this.acknowledgementsBox.ResumeLayout(false);
             this.answerBox.ResumeLayout(false);
             this.splitContainerAnswer.Panel1.ResumeLayout(false);
             this.splitContainerAnswer.Panel2.ResumeLayout(false);
@@ -214,12 +207,12 @@
         private System.Windows.Forms.GroupBox acknowledgementsBox;
         private System.Windows.Forms.RichTextBox acknowledgmentsText;
         private System.Windows.Forms.Button viewAnswerButton;
-        private System.Windows.Forms.SplitContainer splitContainerQuestion;
         private System.Windows.Forms.PictureBox pictureBoxQuestion;
         private System.Windows.Forms.GroupBox answerBox;
         private System.Windows.Forms.SplitContainer splitContainerAnswer;
         private System.Windows.Forms.RichTextBox answerText;
         private System.Windows.Forms.PictureBox pictureBoxAnswer;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

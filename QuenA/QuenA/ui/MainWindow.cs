@@ -304,9 +304,25 @@ namespace QuenA.ui
         /// Add a question card to the card map.
         /// </summary>
         /// <param name="card">The question card to add.</param>
-        public void addToCardMap(QuestionCard card)
+        public bool addToCardMap(QuestionCard card)
         {
-            cardMap.Add(card.FlavourText, card);
+            if (cardMap.ContainsKey(card.FlavourText))
+            {
+                if (MessageBox.Show("The same question already exists.  Overwrite?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    cardMap.Remove(card.FlavourText);
+                    cardMap.Add(card.FlavourText, card);
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }
+            }
+            else { 
+                cardMap.Add(card.FlavourText, card);
+                return true;
+            }
         }
 
         /// <summary>

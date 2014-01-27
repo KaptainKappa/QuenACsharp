@@ -80,9 +80,11 @@ namespace QuenA.Data.Control
         public static void addQuestionCard(QuestionCard card) 
         {
             RuntimeData.CurrentlyLoadedSubject.addCard(card);
-            MainWindow.addToCardMap(card);
-            RuntimeData.UnsavedChanges = true;
-            notify();
+            if (MainWindow.addToCardMap(card))
+            {
+                RuntimeData.UnsavedChanges = true;
+                notify();
+            }
         }
 
         /// <summary>

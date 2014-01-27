@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using QuenA.Data;
 using System.Diagnostics;
 using QuenA.Data.Control;
+using QuenA.Util;
 
 
 namespace QuenA.ui
@@ -169,9 +170,9 @@ namespace QuenA.ui
         /// <param name="e"></param>
         private void attachImageButton_Click(object sender, EventArgs e)
         {
-            if (imageDialog.ShowDialog() == DialogResult.OK) 
+            if (imageDialog.ShowDialog() == DialogResult.OK)
             {
-                if (sender == attachImageButtonQuestion) 
+                if (sender == attachImageButtonQuestion)
                 {
                     questionImageFull = Image.FromFile(imageDialog.FileName);
                 }
@@ -221,15 +222,21 @@ namespace QuenA.ui
         /// </summary>
         /// <param name="sender">The image thumbnail clicked.</param>
         /// <param name="e"></param>
-        private void imageThumbnailQuestion_Click(object sender, EventArgs e)
+        private void imageThumbnail_Click(object sender, EventArgs e)
         {
             if (sender == imageThumbnailQuestion)
             {
-                new ImageViewer(questionImageFull).Show();
+                if (imageThumbnailQuestion.Image != null)
+                {
+                    new ImageViewer(questionImageFull).Show();
+                }
             }
             else if (sender == imageThumbnailAnswer)
             {
-                new ImageViewer(answerImageFull).Show();
+                if (imageThumbnailAnswer.Image != null)
+                {
+                    new ImageViewer(answerImageFull).Show();
+                }
             }
         }
 
@@ -387,7 +394,7 @@ namespace QuenA.ui
             Debug.Assert(editingQuestion == null); //confirm that user wants to add a new question and not edit an existing one
 
             QuestionCard qCard = new QuestionCard(questionText.Rtf, answerText.Rtf, acknowledgmentsText.Rtf, questionImageFull, answerImageFull);
-            
+
             SubjectControl.addQuestionCard(qCard);
             Debug.Assert(RuntimeData.CurrentlyLoadedSubject.checkForCard(qCard)); //confirm card has been added to the subject
 
@@ -429,43 +436,35 @@ namespace QuenA.ui
                 if (buttonClicked == attachImageButtonQuestion)
                 {
                     thumbnailImage = questionImageFull;
-                    if (thumbnailImage.Width > 100 || thumbnailImage.Height > 100)
+                    if (thumbnailImage != null)
                     {
-                        thumbnailImage = resizeImageToThumbnail(thumbnailImage);
+                        if (thumbnailImage.Width > imageThumbnailQuestion.Width || thumbnailImage.Height > imageThumbnailQuestion.Height)
+                        {
+                            thumbnailImage = Imagery.resizeImageToSquareThumbnail(thumbnailImage, imageThumbnailQuestion.Width);
+                        }
+                        imageThumbnailQuestion.Size = thumbnailImage.Size;
+                        imageThumbnailQuestion.Image = thumbnailImage;
                     }
-                    imageThumbnailQuestion.Size = thumbnailImage.Size;
-                    imageThumbnailQuestion.Image = thumbnailImage;
                 }
                 else if (buttonClicked == attachImageButtonAnswer)
                 {
                     thumbnailImage = answerImageFull;
-                    if (thumbnailImage.Width > 100 || thumbnailImage.Height > 100)
+                    if (thumbnailImage != null)
                     {
-                        thumbnailImage = resizeImageToThumbnail(thumbnailImage);
+                        if (thumbnailImage.Width > imageThumbnailAnswer.Width || thumbnailImage.Height > imageThumbnailAnswer.Height)
+                        {
+                            thumbnailImage = Imagery.resizeImageToSquareThumbnail(thumbnailImage, imageThumbnailAnswer.Width);
+                        }
+                        imageThumbnailAnswer.Size = thumbnailImage.Size;
+                        imageThumbnailAnswer.Image = thumbnailImage;
                     }
-                    imageThumbnailAnswer.Size = thumbnailImage.Size;
-                    imageThumbnailAnswer.Image = thumbnailImage;
                 }
             }
         }
 
-        /// <summary>
-        /// Resizes an image to the size that fits in a thumbnail slot in the form.
-        /// </summary>
-        /// <param name="image">The image to resize.</param>
-        /// <returns></returns>
-        private Image resizeImageToThumbnail(Image image)
-        {
-            int longestSide = Math.Max(image.Width, image.Height);
-            int resizedWidth = (100 * image.Width) / longestSide;
-            int resizedHeight = (100 * image.Height) / longestSide;
 
-            Image resizedThumbnail = new Bitmap(resizedWidth, resizedHeight);
-            Graphics.FromImage(resizedThumbnail).DrawImage(image, 0, 0, resizedWidth, resizedHeight);
-            return resizedThumbnail;
-        }
 
-        
-        
+
+
     }
 }

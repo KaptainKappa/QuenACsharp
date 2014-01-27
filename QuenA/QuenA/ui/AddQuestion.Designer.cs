@@ -128,9 +128,9 @@
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelQuestion.Controls.Add(this.imageLabelQuestion, 0, 0);
             this.tableLayoutPanelQuestion.Controls.Add(this.imageThumbnailQuestion, 1, 0);
             this.tableLayoutPanelQuestion.Controls.Add(this.attachImageButtonQuestion, 2, 0);
+            this.tableLayoutPanelQuestion.Controls.Add(this.imageLabelQuestion, 0, 0);
             this.tableLayoutPanelQuestion.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanelQuestion.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelQuestion.Name = "tableLayoutPanelQuestion";
@@ -157,7 +157,7 @@
             this.imageThumbnailQuestion.Size = new System.Drawing.Size(90, 90);
             this.imageThumbnailQuestion.TabIndex = 1;
             this.imageThumbnailQuestion.TabStop = false;
-            this.imageThumbnailQuestion.Click += new System.EventHandler(this.imageThumbnailQuestion_Click);
+            this.imageThumbnailQuestion.Click += new System.EventHandler(this.imageThumbnail_Click);
             // 
             // attachImageButtonQuestion
             // 
@@ -456,6 +456,7 @@
             this.imageThumbnailAnswer.Size = new System.Drawing.Size(90, 90);
             this.imageThumbnailAnswer.TabIndex = 1;
             this.imageThumbnailAnswer.TabStop = false;
+            this.imageThumbnailAnswer.Click += new System.EventHandler(this.imageThumbnail_Click);
             // 
             // attachImageButtonAnswer
             // 
