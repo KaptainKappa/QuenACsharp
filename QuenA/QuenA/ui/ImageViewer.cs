@@ -16,23 +16,22 @@ namespace QuenA.ui
         {
             InitializeComponent();
             
+            Rectangle screenRectangle=RectangleToScreen(this.ClientRectangle);
+            int titleHeight = screenRectangle.Top - this.Top;
+
             this.Width = image.Width;
-            this.Height = image.Height + closeButton.Height;
-            splitContainer.SplitterDistance = image.Height;
+            this.Height = image.Height + titleHeight;
             pictureBox.Image = image;
         }
 
         /// <summary>
-        /// Closes this window.
+        /// Closes the image being viewed when the image is double clicked.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void closeButton_Click(object sender, EventArgs e)
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
         {
             this.Dispose();
         }
-
-        
-
     }
 }
