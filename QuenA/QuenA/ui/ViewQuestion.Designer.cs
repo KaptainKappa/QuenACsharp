@@ -36,18 +36,15 @@
             this.acknowledgmentsText = new System.Windows.Forms.RichTextBox();
             this.viewAnswerButton = new System.Windows.Forms.Button();
             this.answerBox = new System.Windows.Forms.GroupBox();
-            this.splitContainerAnswer = new System.Windows.Forms.SplitContainer();
-            this.answerText = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxAnswer = new System.Windows.Forms.PictureBox();
+            this.answerText = new System.Windows.Forms.RichTextBox();
             this.questionBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQuestion)).BeginInit();
             this.acknowledgementsBox.SuspendLayout();
             this.answerBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAnswer)).BeginInit();
-            this.splitContainerAnswer.Panel1.SuspendLayout();
-            this.splitContainerAnswer.Panel2.SuspendLayout();
-            this.splitContainerAnswer.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAnswer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +125,7 @@
             // 
             // answerBox
             // 
-            this.answerBox.Controls.Add(this.splitContainerAnswer);
+            this.answerBox.Controls.Add(this.tableLayoutPanel2);
             this.answerBox.Location = new System.Drawing.Point(12, 187);
             this.answerBox.Name = "answerBox";
             this.answerBox.Size = new System.Drawing.Size(768, 169);
@@ -136,43 +133,40 @@
             this.answerBox.TabStop = false;
             this.answerBox.Text = "Answer";
             // 
-            // splitContainerAnswer
+            // tableLayoutPanel2
             // 
-            this.splitContainerAnswer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerAnswer.Location = new System.Drawing.Point(3, 16);
-            this.splitContainerAnswer.Name = "splitContainerAnswer";
-            // 
-            // splitContainerAnswer.Panel1
-            // 
-            this.splitContainerAnswer.Panel1.Controls.Add(this.answerText);
-            // 
-            // splitContainerAnswer.Panel2
-            // 
-            this.splitContainerAnswer.Panel2.Controls.Add(this.pictureBoxAnswer);
-            this.splitContainerAnswer.Size = new System.Drawing.Size(762, 150);
-            this.splitContainerAnswer.SplitterDistance = 608;
-            this.splitContainerAnswer.TabIndex = 2;
-            // 
-            // answerText
-            // 
-            this.answerText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.answerText.Location = new System.Drawing.Point(0, 0);
-            this.answerText.MinimumSize = new System.Drawing.Size(4, 20);
-            this.answerText.Name = "answerText";
-            this.answerText.ReadOnly = true;
-            this.answerText.Size = new System.Drawing.Size(608, 150);
-            this.answerText.TabIndex = 1;
-            this.answerText.Text = "";
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.pictureBoxAnswer, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.answerText, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(762, 150);
+            this.tableLayoutPanel2.TabIndex = 0;
             // 
             // pictureBoxAnswer
             // 
             this.pictureBoxAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pictureBoxAnswer.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxAnswer.Location = new System.Drawing.Point(609, 3);
             this.pictureBoxAnswer.Name = "pictureBoxAnswer";
-            this.pictureBoxAnswer.Size = new System.Drawing.Size(150, 150);
+            this.pictureBoxAnswer.Size = new System.Drawing.Size(150, 144);
             this.pictureBoxAnswer.TabIndex = 6;
             this.pictureBoxAnswer.TabStop = false;
             this.pictureBoxAnswer.Click += new System.EventHandler(this.pictureBox_Click);
+            // 
+            // answerText
+            // 
+            this.answerText.Location = new System.Drawing.Point(3, 3);
+            this.answerText.MinimumSize = new System.Drawing.Size(4, 20);
+            this.answerText.Name = "answerText";
+            this.answerText.ReadOnly = true;
+            this.answerText.Size = new System.Drawing.Size(600, 144);
+            this.answerText.TabIndex = 1;
+            this.answerText.Text = "";
             // 
             // ViewQuestion
             // 
@@ -191,10 +185,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQuestion)).EndInit();
             this.acknowledgementsBox.ResumeLayout(false);
             this.answerBox.ResumeLayout(false);
-            this.splitContainerAnswer.Panel1.ResumeLayout(false);
-            this.splitContainerAnswer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAnswer)).EndInit();
-            this.splitContainerAnswer.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAnswer)).EndInit();
             this.ResumeLayout(false);
 
@@ -208,11 +199,11 @@
         private System.Windows.Forms.RichTextBox acknowledgmentsText;
         private System.Windows.Forms.Button viewAnswerButton;
         private System.Windows.Forms.PictureBox pictureBoxQuestion;
-        private System.Windows.Forms.GroupBox answerBox;
-        private System.Windows.Forms.SplitContainer splitContainerAnswer;
-        private System.Windows.Forms.RichTextBox answerText;
-        private System.Windows.Forms.PictureBox pictureBoxAnswer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox answerBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.PictureBox pictureBoxAnswer;
+        private System.Windows.Forms.RichTextBox answerText;
     }
 }
 
