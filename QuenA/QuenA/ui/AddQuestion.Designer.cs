@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.questionBox = new System.Windows.Forms.GroupBox();
+            this.splitContainerQuestion = new System.Windows.Forms.SplitContainer();
             this.questionText = new System.Windows.Forms.RichTextBox();
-            this.answerBox = new System.Windows.Forms.GroupBox();
-            this.answerText = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanelQuestion = new System.Windows.Forms.TableLayoutPanel();
+            this.imageLabelQuestion = new System.Windows.Forms.Label();
+            this.imageThumbnailQuestion = new System.Windows.Forms.PictureBox();
+            this.attachImageButtonQuestion = new System.Windows.Forms.Button();
             this.formattingBox = new System.Windows.Forms.GroupBox();
             this.underlineButton = new System.Windows.Forms.Button();
             this.italicsButton = new System.Windows.Forms.Button();
@@ -52,54 +55,120 @@
             this.acknowledgementsBox = new System.Windows.Forms.GroupBox();
             this.acknowledgmentsText = new System.Windows.Forms.RichTextBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.imageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.answerBox = new System.Windows.Forms.GroupBox();
+            this.splitContainerAnswer = new System.Windows.Forms.SplitContainer();
+            this.answerText = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanelAnswer = new System.Windows.Forms.TableLayoutPanel();
+            this.imageLabelAnswer = new System.Windows.Forms.Label();
+            this.imageThumbnailAnswer = new System.Windows.Forms.PictureBox();
+            this.attachImageButtonAnswer = new System.Windows.Forms.Button();
             this.questionBox.SuspendLayout();
-            this.answerBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerQuestion)).BeginInit();
+            this.splitContainerQuestion.Panel1.SuspendLayout();
+            this.splitContainerQuestion.Panel2.SuspendLayout();
+            this.splitContainerQuestion.SuspendLayout();
+            this.tableLayoutPanelQuestion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageThumbnailQuestion)).BeginInit();
             this.formattingBox.SuspendLayout();
             this.textHighlightBox.SuspendLayout();
             this.colourBox.SuspendLayout();
             this.acknowledgementsBox.SuspendLayout();
+            this.answerBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAnswer)).BeginInit();
+            this.splitContainerAnswer.Panel1.SuspendLayout();
+            this.splitContainerAnswer.Panel2.SuspendLayout();
+            this.splitContainerAnswer.SuspendLayout();
+            this.tableLayoutPanelAnswer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageThumbnailAnswer)).BeginInit();
             this.SuspendLayout();
             // 
             // questionBox
             // 
-            this.questionBox.Controls.Add(this.questionText);
+            this.questionBox.Controls.Add(this.splitContainerQuestion);
             this.questionBox.Location = new System.Drawing.Point(12, 12);
             this.questionBox.Name = "questionBox";
-            this.questionBox.Size = new System.Drawing.Size(549, 172);
+            this.questionBox.Size = new System.Drawing.Size(549, 277);
             this.questionBox.TabIndex = 1;
             this.questionBox.TabStop = false;
             this.questionBox.Text = "Question";
             // 
+            // splitContainerQuestion
+            // 
+            this.splitContainerQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerQuestion.Location = new System.Drawing.Point(3, 16);
+            this.splitContainerQuestion.Name = "splitContainerQuestion";
+            this.splitContainerQuestion.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerQuestion.Panel1
+            // 
+            this.splitContainerQuestion.Panel1.Controls.Add(this.questionText);
+            // 
+            // splitContainerQuestion.Panel2
+            // 
+            this.splitContainerQuestion.Panel2.Controls.Add(this.tableLayoutPanelQuestion);
+            this.splitContainerQuestion.Size = new System.Drawing.Size(543, 258);
+            this.splitContainerQuestion.SplitterDistance = 158;
+            this.splitContainerQuestion.TabIndex = 2;
+            // 
             // questionText
             // 
             this.questionText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.questionText.Location = new System.Drawing.Point(3, 16);
+            this.questionText.Location = new System.Drawing.Point(0, 0);
             this.questionText.MinimumSize = new System.Drawing.Size(4, 20);
             this.questionText.Name = "questionText";
-            this.questionText.Size = new System.Drawing.Size(543, 153);
+            this.questionText.Size = new System.Drawing.Size(543, 158);
             this.questionText.TabIndex = 1;
             this.questionText.Text = "";
             this.questionText.Enter += new System.EventHandler(this.changeFocusedBox);
             // 
-            // answerBox
+            // tableLayoutPanelQuestion
             // 
-            this.answerBox.Controls.Add(this.answerText);
-            this.answerBox.Location = new System.Drawing.Point(12, 190);
-            this.answerBox.Name = "answerBox";
-            this.answerBox.Size = new System.Drawing.Size(549, 172);
-            this.answerBox.TabIndex = 3;
-            this.answerBox.TabStop = false;
-            this.answerBox.Text = "Answer";
+            this.tableLayoutPanelQuestion.ColumnCount = 3;
+            this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelQuestion.Controls.Add(this.imageThumbnailQuestion, 1, 0);
+            this.tableLayoutPanelQuestion.Controls.Add(this.attachImageButtonQuestion, 2, 0);
+            this.tableLayoutPanelQuestion.Controls.Add(this.imageLabelQuestion, 0, 0);
+            this.tableLayoutPanelQuestion.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tableLayoutPanelQuestion.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelQuestion.Name = "tableLayoutPanelQuestion";
+            this.tableLayoutPanelQuestion.RowCount = 1;
+            this.tableLayoutPanelQuestion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelQuestion.Size = new System.Drawing.Size(543, 96);
+            this.tableLayoutPanelQuestion.TabIndex = 9;
             // 
-            // answerText
+            // imageLabelQuestion
             // 
-            this.answerText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.answerText.Location = new System.Drawing.Point(3, 16);
-            this.answerText.Name = "answerText";
-            this.answerText.Size = new System.Drawing.Size(543, 153);
-            this.answerText.TabIndex = 0;
-            this.answerText.Text = "";
-            this.answerText.Enter += new System.EventHandler(this.changeFocusedBox);
+            this.imageLabelQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.imageLabelQuestion.AutoSize = true;
+            this.imageLabelQuestion.Location = new System.Drawing.Point(3, 41);
+            this.imageLabelQuestion.Name = "imageLabelQuestion";
+            this.imageLabelQuestion.Size = new System.Drawing.Size(39, 13);
+            this.imageLabelQuestion.TabIndex = 0;
+            this.imageLabelQuestion.Text = "Image:";
+            // 
+            // imageThumbnailQuestion
+            // 
+            this.imageThumbnailQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.imageThumbnailQuestion.Location = new System.Drawing.Point(48, 3);
+            this.imageThumbnailQuestion.Name = "imageThumbnailQuestion";
+            this.imageThumbnailQuestion.Size = new System.Drawing.Size(90, 90);
+            this.imageThumbnailQuestion.TabIndex = 1;
+            this.imageThumbnailQuestion.TabStop = false;
+            this.imageThumbnailQuestion.Click += new System.EventHandler(this.imageThumbnail_Click);
+            // 
+            // attachImageButtonQuestion
+            // 
+            this.attachImageButtonQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.attachImageButtonQuestion.Location = new System.Drawing.Point(144, 36);
+            this.attachImageButtonQuestion.Name = "attachImageButtonQuestion";
+            this.attachImageButtonQuestion.Size = new System.Drawing.Size(97, 23);
+            this.attachImageButtonQuestion.TabIndex = 2;
+            this.attachImageButtonQuestion.Text = "Attach Image...";
+            this.attachImageButtonQuestion.UseVisualStyleBackColor = true;
+            this.attachImageButtonQuestion.Click += new System.EventHandler(this.attachImageButton_Click);
             // 
             // formattingBox
             // 
@@ -110,7 +179,7 @@
             this.formattingBox.Controls.Add(this.colourBox);
             this.formattingBox.Location = new System.Drawing.Point(567, 12);
             this.formattingBox.Name = "formattingBox";
-            this.formattingBox.Size = new System.Drawing.Size(247, 350);
+            this.formattingBox.Size = new System.Drawing.Size(247, 607);
             this.formattingBox.TabIndex = 5;
             this.formattingBox.TabStop = false;
             this.formattingBox.Text = "Formatting";
@@ -272,7 +341,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(15, 415);
+            this.saveButton.Location = new System.Drawing.Point(12, 625);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 6;
@@ -282,7 +351,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(96, 415);
+            this.cancelButton.Location = new System.Drawing.Point(93, 625);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -293,7 +362,7 @@
             // acknowledgementsBox
             // 
             this.acknowledgementsBox.Controls.Add(this.acknowledgmentsText);
-            this.acknowledgementsBox.Location = new System.Drawing.Point(12, 368);
+            this.acknowledgementsBox.Location = new System.Drawing.Point(15, 578);
             this.acknowledgementsBox.Name = "acknowledgementsBox";
             this.acknowledgementsBox.Size = new System.Drawing.Size(546, 41);
             this.acknowledgementsBox.TabIndex = 8;
@@ -310,28 +379,132 @@
             this.acknowledgmentsText.Text = "";
             this.acknowledgmentsText.Enter += new System.EventHandler(this.changeFocusedBox);
             // 
+            // imageDialog
+            // 
+            this.imageDialog.Filter = "\"Image files (*.bmp;*.jpg;*.gif)|*.bmp;*.jpg;*.gif\"";
+            // 
+            // answerBox
+            // 
+            this.answerBox.Controls.Add(this.splitContainerAnswer);
+            this.answerBox.Location = new System.Drawing.Point(15, 295);
+            this.answerBox.Name = "answerBox";
+            this.answerBox.Size = new System.Drawing.Size(549, 277);
+            this.answerBox.TabIndex = 9;
+            this.answerBox.TabStop = false;
+            this.answerBox.Text = "Answer";
+            // 
+            // splitContainerAnswer
+            // 
+            this.splitContainerAnswer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerAnswer.Location = new System.Drawing.Point(3, 16);
+            this.splitContainerAnswer.Name = "splitContainerAnswer";
+            this.splitContainerAnswer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerAnswer.Panel1
+            // 
+            this.splitContainerAnswer.Panel1.Controls.Add(this.answerText);
+            // 
+            // splitContainerAnswer.Panel2
+            // 
+            this.splitContainerAnswer.Panel2.Controls.Add(this.tableLayoutPanelAnswer);
+            this.splitContainerAnswer.Size = new System.Drawing.Size(543, 258);
+            this.splitContainerAnswer.SplitterDistance = 158;
+            this.splitContainerAnswer.TabIndex = 2;
+            // 
+            // answerText
+            // 
+            this.answerText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.answerText.Location = new System.Drawing.Point(0, 0);
+            this.answerText.MinimumSize = new System.Drawing.Size(4, 20);
+            this.answerText.Name = "answerText";
+            this.answerText.Size = new System.Drawing.Size(543, 158);
+            this.answerText.TabIndex = 1;
+            this.answerText.Text = "";
+            // 
+            // tableLayoutPanelAnswer
+            // 
+            this.tableLayoutPanelAnswer.ColumnCount = 3;
+            this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelAnswer.Controls.Add(this.imageLabelAnswer, 0, 0);
+            this.tableLayoutPanelAnswer.Controls.Add(this.imageThumbnailAnswer, 1, 0);
+            this.tableLayoutPanelAnswer.Controls.Add(this.attachImageButtonAnswer, 2, 0);
+            this.tableLayoutPanelAnswer.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tableLayoutPanelAnswer.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelAnswer.Name = "tableLayoutPanelAnswer";
+            this.tableLayoutPanelAnswer.RowCount = 1;
+            this.tableLayoutPanelAnswer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelAnswer.Size = new System.Drawing.Size(543, 96);
+            this.tableLayoutPanelAnswer.TabIndex = 9;
+            // 
+            // imageLabelAnswer
+            // 
+            this.imageLabelAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.imageLabelAnswer.AutoSize = true;
+            this.imageLabelAnswer.Location = new System.Drawing.Point(3, 41);
+            this.imageLabelAnswer.Name = "imageLabelAnswer";
+            this.imageLabelAnswer.Size = new System.Drawing.Size(39, 13);
+            this.imageLabelAnswer.TabIndex = 0;
+            this.imageLabelAnswer.Text = "Image:";
+            // 
+            // imageThumbnailAnswer
+            // 
+            this.imageThumbnailAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.imageThumbnailAnswer.Location = new System.Drawing.Point(48, 3);
+            this.imageThumbnailAnswer.Name = "imageThumbnailAnswer";
+            this.imageThumbnailAnswer.Size = new System.Drawing.Size(90, 90);
+            this.imageThumbnailAnswer.TabIndex = 1;
+            this.imageThumbnailAnswer.TabStop = false;
+            this.imageThumbnailAnswer.Click += new System.EventHandler(this.imageThumbnail_Click);
+            // 
+            // attachImageButtonAnswer
+            // 
+            this.attachImageButtonAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.attachImageButtonAnswer.Location = new System.Drawing.Point(144, 36);
+            this.attachImageButtonAnswer.Name = "attachImageButtonAnswer";
+            this.attachImageButtonAnswer.Size = new System.Drawing.Size(97, 23);
+            this.attachImageButtonAnswer.TabIndex = 2;
+            this.attachImageButtonAnswer.Text = "Attach Image...";
+            this.attachImageButtonAnswer.UseVisualStyleBackColor = true;
+            this.attachImageButtonAnswer.Click += new System.EventHandler(this.attachImageButton_Click);
+            // 
             // AddQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 449);
+            this.ClientSize = new System.Drawing.Size(828, 662);
+            this.Controls.Add(this.answerBox);
             this.Controls.Add(this.acknowledgementsBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.formattingBox);
-            this.Controls.Add(this.answerBox);
             this.Controls.Add(this.questionBox);
             this.KeyPreview = true;
             this.Name = "AddQuestion";
             this.Text = "Add a Question";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddQuestion_KeyDown);
             this.questionBox.ResumeLayout(false);
-            this.answerBox.ResumeLayout(false);
+            this.splitContainerQuestion.Panel1.ResumeLayout(false);
+            this.splitContainerQuestion.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerQuestion)).EndInit();
+            this.splitContainerQuestion.ResumeLayout(false);
+            this.tableLayoutPanelQuestion.ResumeLayout(false);
+            this.tableLayoutPanelQuestion.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageThumbnailQuestion)).EndInit();
             this.formattingBox.ResumeLayout(false);
             this.textHighlightBox.ResumeLayout(false);
             this.textHighlightBox.PerformLayout();
             this.colourBox.ResumeLayout(false);
             this.acknowledgementsBox.ResumeLayout(false);
+            this.answerBox.ResumeLayout(false);
+            this.splitContainerAnswer.Panel1.ResumeLayout(false);
+            this.splitContainerAnswer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAnswer)).EndInit();
+            this.splitContainerAnswer.ResumeLayout(false);
+            this.tableLayoutPanelAnswer.ResumeLayout(false);
+            this.tableLayoutPanelAnswer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageThumbnailAnswer)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -340,8 +513,6 @@
 
         private System.Windows.Forms.GroupBox questionBox;
         private System.Windows.Forms.RichTextBox questionText;
-        private System.Windows.Forms.GroupBox answerBox;
-        private System.Windows.Forms.RichTextBox answerText;
         private System.Windows.Forms.GroupBox formattingBox;
         private System.Windows.Forms.Panel textHighlightBox;
         private System.Windows.Forms.RadioButton highlightColourRadio;
@@ -362,5 +533,18 @@
         private System.Windows.Forms.Button boldButton;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Button whiteColourButton;
+        private System.Windows.Forms.SplitContainer splitContainerQuestion;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuestion;
+        private System.Windows.Forms.Label imageLabelQuestion;
+        private System.Windows.Forms.PictureBox imageThumbnailQuestion;
+        private System.Windows.Forms.Button attachImageButtonQuestion;
+        private System.Windows.Forms.OpenFileDialog imageDialog;
+        private System.Windows.Forms.GroupBox answerBox;
+        private System.Windows.Forms.SplitContainer splitContainerAnswer;
+        private System.Windows.Forms.RichTextBox answerText;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAnswer;
+        private System.Windows.Forms.Label imageLabelAnswer;
+        private System.Windows.Forms.PictureBox imageThumbnailAnswer;
+        private System.Windows.Forms.Button attachImageButtonAnswer;
     }
 }

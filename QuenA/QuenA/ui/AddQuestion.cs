@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using QuenA.Data;
 using System.Diagnostics;
 using QuenA.Data.Control;
+using QuenA.Util;
 
 
 namespace QuenA.ui
@@ -26,12 +27,17 @@ namespace QuenA.ui
         //The last box that had input focus.
         private RichTextBox lastFocusedBox;
 
+        //The full-size image to be attached to the question.
+        private Image questionImageFull = null;
+
+        //The full-size image to be attached to the question.
+        private Image answerImageFull = null;
+
         //Create a new AddQuestion box with blank text fields, i.e. creating a new question card.
         public AddQuestion()
         {
             InitializeComponent();
             editingQuestion = null;
-
         }
 
         //Create a new AddQuestion box with text field equal to the question card passed as parameter, i.e. editing an existing card
@@ -41,7 +47,11 @@ namespace QuenA.ui
             questionText.Rtf = card.QuestionText;
             answerText.Rtf = card.AnswerText;
             acknowledgmentsText.Rtf = card.AcknowledgementsText;
+            questionImageFull = card.QuestionImage;
+            answerImageFull = card.AnswerImage;
             editingQuestion = card;
+            setPreviewImage(attachImageButtonQuestion);
+            setPreviewImage(attachImageButtonAnswer);
         }
 
         /// <summary>
@@ -150,6 +160,83 @@ namespace QuenA.ui
             if (MessageBox.Show("Are you sure you wish to cancel?  You will lose all changes made.", "Confirm cancel", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
                 this.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Prompts the user to open an image file and then attaches the image to the question or answer, depending on which button was clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void attachImageButton_Click(object sender, EventArgs e)
+        {
+            if (imageDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (sender == attachImageButtonQuestion)
+                {
+                    questionImageFull = Image.FromFile(imageDialog.FileName);
+                }
+                else if (sender == attachImageButtonAnswer)
+                {
+                    answerImageFull = Image.FromFile(imageDialog.FileName);
+                }
+
+                //put image thumbnail preview in the form
+                setPreviewImage(sender as Button);
+
+            }
+        }
+
+        /// <summary>
+        /// Support for shortcut keys within the text boxes.  If a key combination is pressed (CTRL + B, etc), get what keys are pressed and simulates the clicking of a button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddQuestion_KeyDown(object sender, KeyEventArgs e)
+        {
+            //check for control key being pressed
+            if (e.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    //CTRL + B - Bold
+                    case Keys.B:
+                        boldButton_Click(boldButton, e);
+                        break;
+                    //CTRL + I - Italics
+                    case Keys.I:
+                        italicsButton_Click(italicsButton, e);
+                        //suppress the default behaviour of CTRL+I (inserting a TAB)
+                        e.SuppressKeyPress = true;
+                        break;
+                    //CTRL + U - Underline
+                    case Keys.U:
+                        underlineButton_Click(underlineButton, e);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the full-size version of the image thumbnail clicked.
+        /// </summary>
+        /// <param name="sender">The image thumbnail clicked.</param>
+        /// <param name="e"></param>
+        private void imageThumbnail_Click(object sender, EventArgs e)
+        {
+            if (sender == imageThumbnailQuestion)
+            {
+                if (imageThumbnailQuestion.Image != null)
+                {
+                    new ImageViewer(questionImageFull).Show();
+                }
+            }
+            else if (sender == imageThumbnailAnswer)
+            {
+                if (imageThumbnailAnswer.Image != null)
+                {
+                    new ImageViewer(answerImageFull).Show();
+                }
             }
         }
 
@@ -306,15 +393,7 @@ namespace QuenA.ui
 
             Debug.Assert(editingQuestion == null); //confirm that user wants to add a new question and not edit an existing one
 
-            QuestionCard qCard;
-            if (String.IsNullOrWhiteSpace(acknowledgmentsText.Text))
-            {
-                qCard = new QuestionCard(questionText.Rtf, answerText.Rtf);
-            }
-            else
-            {
-                qCard = new QuestionCard(questionText.Rtf, answerText.Rtf, acknowledgmentsText.Rtf);
-            }
+            QuestionCard qCard = new QuestionCard(questionText.Rtf, answerText.Rtf, acknowledgmentsText.Rtf, questionImageFull, answerImageFull);
 
             SubjectControl.addQuestionCard(qCard);
             Debug.Assert(RuntimeData.CurrentlyLoadedSubject.checkForCard(qCard)); //confirm card has been added to the subject
@@ -334,6 +413,8 @@ namespace QuenA.ui
             outputQuestion.QuestionText = questionText.Rtf;
             outputQuestion.AnswerText = answerText.Rtf;
             outputQuestion.AcknowledgementsText = acknowledgmentsText.Rtf;
+            outputQuestion.QuestionImage = questionImageFull;
+            outputQuestion.AnswerImage = answerImageFull;
 
             SubjectControl.changeQuestionCard(editingQuestion, outputQuestion);
 
@@ -343,34 +424,44 @@ namespace QuenA.ui
         }
 
         /// <summary>
-        /// Support for shortcut keys within the text boxes.  If a key combination is pressed (CTRL + B, etc), get what keys are pressed and simulates the clicking of a button.
+        /// Places the thumbnail of the image attached to the question or answer in the thumbnail slot corresponding to it.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddQuestion_KeyDown(object sender, KeyEventArgs e)
+        /// <param name="buttonClicked"></param>
+        private void setPreviewImage(Button buttonClicked)
         {
-            //check for control key being pressed
-            if (e.Control)
+            if (buttonClicked != null)
             {
-                switch (e.KeyCode)
+                Image thumbnailImage;
+
+                if (buttonClicked == attachImageButtonQuestion)
                 {
-                    //CTRL + B - Bold
-                    case Keys.B:
-                        boldButton_Click(boldButton, e);
-                        break;
-                    //CTRL + I - Italics
-                    case Keys.I:
-                        italicsButton_Click(italicsButton, e);
-                        //suppress the default behaviour of CTRL+I (inserting a TAB)
-                        e.SuppressKeyPress = true;
-                        break;
-                    //CTRL + U - Underline
-                    case Keys.U:
-                        underlineButton_Click(underlineButton, e);
-                        break;
+                    thumbnailImage = questionImageFull;
+                    if (thumbnailImage != null)
+                    {
+                        if (thumbnailImage.Width > imageThumbnailQuestion.Width || thumbnailImage.Height > imageThumbnailQuestion.Height)
+                        {
+                            thumbnailImage = Imagery.resizeImageToSquareThumbnail(thumbnailImage, imageThumbnailQuestion.Width);
+                        }
+                        imageThumbnailQuestion.Size = thumbnailImage.Size;
+                        imageThumbnailQuestion.Image = thumbnailImage;
+                    }
+                }
+                else if (buttonClicked == attachImageButtonAnswer)
+                {
+                    thumbnailImage = answerImageFull;
+                    if (thumbnailImage != null)
+                    {
+                        if (thumbnailImage.Width > imageThumbnailAnswer.Width || thumbnailImage.Height > imageThumbnailAnswer.Height)
+                        {
+                            thumbnailImage = Imagery.resizeImageToSquareThumbnail(thumbnailImage, imageThumbnailAnswer.Width);
+                        }
+                        imageThumbnailAnswer.Size = thumbnailImage.Size;
+                        imageThumbnailAnswer.Image = thumbnailImage;
+                    }
                 }
             }
         }
+
 
 
 

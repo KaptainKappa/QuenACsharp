@@ -1,4 +1,6 @@
 ﻿using QuenA.Data;
+using QuenA.ui;
+using QuenA.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,22 +17,41 @@ namespace QuenA
     {
         private bool answerHidden;
         private bool hasAcknowledgements;
+        private QuestionCard card;
 
-        public ViewQuestion(QuestionCard card) {
+        public ViewQuestion(QuestionCard cardToView)
+        {
+            card = cardToView;
             Text = card.FlavourText;
             InitializeComponent();
             questionText.Rtf = card.QuestionText;
             answerText.Rtf = card.AnswerText;
             acknowledgmentsText.Rtf = card.AcknowledgementsText;
 
+            
+
+            if (card.QuestionImage != null)
+            {
+                Image questionThumbnail = Imagery.resizeImageToSquareThumbnail(card.QuestionImage, pictureBoxQuestion.Width);
+                pictureBoxQuestion.Size = questionThumbnail.Size;
+                pictureBoxQuestion.Image = questionThumbnail;
+            }
+            if (card.AnswerImage != null)
+            {
+                Image answerThumbnail = Imagery.resizeImageToSquareThumbnail(card.AnswerImage, pictureBoxAnswer.Width);
+                pictureBoxAnswer.Size = answerThumbnail.Size;
+                pictureBoxAnswer.Image = answerThumbnail;
+            }
+
             hasAcknowledgements = !String.IsNullOrEmpty(acknowledgmentsText.Text);
-            if (!hasAcknowledgements) {
+            if (!hasAcknowledgements)
+            {
                 //hide empty (and therefore useless acknowledgements box)
                 acknowledgementsBox.Visible = false;
                 //'pull up' show/hide button accordingly
-                viewAnswerButton.Location = new Point(viewAnswerButton.Location.X, viewAnswerButton.Location.Y - acknowledgementsBox.Height); 
+                viewAnswerButton.Location = new Point(viewAnswerButton.Location.X, viewAnswerButton.Location.Y - acknowledgementsBox.Height);
                 //resize window to remove resultant white space
-                this.Height -= acknowledgementsBox.Height; 
+                this.Height -= acknowledgementsBox.Height;
             }
 
             //wouldn't really make sense if the answer was shown immediately, now would it?
@@ -41,11 +62,12 @@ namespace QuenA
         /// This method will be called when the "Show Answer" button is pressed and the answer box is NOT visible in the window (i.e. in its initial state).
         /// It makes the answer box visible and 'pushes down' element supposed to be below it in order to make room.
         /// </summary>
-        private void showAnswer() {
+        private void showAnswer()
+        {
             answerBox.Visible = true;
 
             //moves show/hide button and acknowledgements bar, if existent
-            Point newAcknowledgementsLocation = new Point (answerBox.Location.X, (answerBox.Location.Y + answerBox.Size.Height));
+            Point newAcknowledgementsLocation = new Point(answerBox.Location.X, (answerBox.Location.Y + answerBox.Size.Height));
             if (hasAcknowledgements)
             {
                 acknowledgementsBox.Location = newAcknowledgementsLocation;
@@ -64,12 +86,13 @@ namespace QuenA
             //set boolean to the correct value for when clicked again
             answerHidden = false;
         }
-    
+
         /// <summary>
         /// This method will be called when the "Hide Answer" button is clicked and the answer box is visible in the window.
         /// It hides the answer box and 'pulls up' the elements below it to get rid of the resultant white space.
         /// </summary>
-        private void hideAnswer() {
+        private void hideAnswer()
+        {
             answerBox.Visible = false;
 
             //move the acknowledgementsbar to the same position as the now hidden answer box
@@ -84,7 +107,7 @@ namespace QuenA
 
             //resize window to eliminate resultant whitespace 
             this.Height -= answerBox.Size.Height;
-           
+
             //change text of the button
             viewAnswerButton.Text = "Show Answer";
             //set boolean for when button is clicked again, the answer is shown
@@ -107,6 +130,29 @@ namespace QuenA
                 hideAnswer();
             }
         }
-             
+
+        /// <summary>
+        /// Shows the image relating to the question/answer in full size.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            if (sender == pictureBoxQuestion)
+            {
+                if (pictureBoxQuestion.Image != null)
+                {
+                    new ImageViewer(card.QuestionImage).Show();
+                }
+            }
+            else if (sender == pictureBoxAnswer)
+            {
+                if (pictureBoxAnswer.Image != null)
+                {
+                    new ImageViewer(card.AnswerImage).Show();
+                }
+            }
+        }
+
     }
 }
