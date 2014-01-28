@@ -18,9 +18,7 @@ namespace QuenA.ui
     /// The main window of the application.  From here, one can create new subjects, save/open existing ones, and perform actions relating to the currently loaded subject.
     /// </summary>
     public partial class MainWindow : Form, IObserver
-    {
-        private static MainWindow instance = new MainWindow();
-        public static MainWindow Instance { get { return instance; } }
+    {    
 
         //Collection of all cards of the currently loaded subject.
         private Dictionary<string, QuestionCard> cardMap = new Dictionary<string, QuestionCard>();
@@ -32,7 +30,7 @@ namespace QuenA.ui
             }
         }
 
-        private MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
             currentlyLoadedSubjectLabel.Text = "";

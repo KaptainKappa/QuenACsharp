@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuenA", "QuenA\QuenA.csproj", "{C8F4C9F3-CA8B-4450-A40D-4604F1670B6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedWards", "..\RedWards\RedWards\RedWards.csproj", "{C9DD42B4-DB3D-4E4E-BA3D-9AF11F7208CB}"

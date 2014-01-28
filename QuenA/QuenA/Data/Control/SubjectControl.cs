@@ -13,18 +13,30 @@ namespace QuenA.Data.Control
     /// <summary>
     /// Class to handle all commands by the user interface to interact with subjects in some form.
     /// </summary>
-    class SubjectControl {       
+    class SubjectControl {
 
+        //instance of the main window of this application.
+        private static MainWindow mainWindow;
 
         //list of all objects observing runtime data in one way or another
         private static List<IObserver> observers = new List<IObserver>();
-        private static MainWindow MainWindow { get { return MainWindow.Instance; } }
+
+        /// <summary>
+        /// Checks if the pointer to the main window is null, and sets it to the current instance of the main window if it is.
+        /// </summary>
+        private static void refreshMainWindow(){
+            if (mainWindow == null)
+            {
+                mainWindow = Program.MainWindow;
+            }
+        }
 
         /// <summary>
         /// Creates a blank subject and loads it into memory, replacing the currently loaded subject.
         /// </summary>
         public static void newSubject() 
         {
+            refreshMainWindow();
             Subject blankSubject = new Subject();
             RuntimeData.CurrentlyLoadedSubject = blankSubject;
             RuntimeData.UnsavedChanges = false;
@@ -37,11 +49,12 @@ namespace QuenA.Data.Control
         /// <param name="filePath">The file path of the subject to be loaded.</param>
         public static void loadSubject(string filePath)
         {
+            refreshMainWindow();
             Subject subjectToLoad = SubjectFileIO.loadSubject(filePath);
             RuntimeData.CurrentlyLoadedSubject = subjectToLoad;
             RuntimeData.CurrentlyLoadedSubjectFilePath = filePath;
             RuntimeData.UnsavedChanges = false;
-            MainWindow.updateSubject();
+            mainWindow.updateSubject();
             notify();
         }
 
@@ -50,6 +63,7 @@ namespace QuenA.Data.Control
         /// </summary>
         public static void saveSubject() 
         {
+            refreshMainWindow();
             if (RuntimeData.CurrentlyLoadedSubjectFilePath != null)
             {
                 saveSubject(RuntimeData.CurrentlyLoadedSubjectFilePath);
@@ -62,6 +76,7 @@ namespace QuenA.Data.Control
         /// <param name="filePath">The full path of the location of the file to save.</param>
         public static void saveSubject(string filePath)
         {
+            refreshMainWindow();
             string[] splitFilePath = filePath.Split('/');
             //get name of file, without path (e.g. "Sofware Engineering.bin")
             string fileName = splitFilePath[splitFilePath.Length - 1];
@@ -79,8 +94,8 @@ namespace QuenA.Data.Control
         /// <param name="card">The QuestionCard object to add.</param>
         public static void addQuestionCard(QuestionCard card) 
         {
-           
-            if (MainWindow.addToCardMap(card))
+            refreshMainWindow();
+            if (mainWindow.addToCardMap(card))
             {
                 if (RuntimeData.CurrentlyLoadedSubject.checkForCard(card)) 
                 {
@@ -93,13 +108,14 @@ namespace QuenA.Data.Control
         }
 
         /// <summary>
-        /// Removes a QuesttionCard from the currently loaded subject.
+        /// Removes a QuestionCard from the currently loaded subject.
         /// </summary>
         /// <param name="card">The QuestionCard object to remove.</param>
         public static void removeQuestionCard(QuestionCard card)
         {
+            refreshMainWindow();
             RuntimeData.CurrentlyLoadedSubject.removeCard(card);
-            MainWindow.removeFromCardMap(card);
+            mainWindow.removeFromCardMap(card);
             RuntimeData.UnsavedChanges = true;
             notify();
 
@@ -111,15 +127,16 @@ namespace QuenA.Data.Control
         /// <param name="card">The QuestionCard object to add.</param>
         public static void changeQuestionCard(QuestionCard oldCard, QuestionCard newCard)
         {
+            refreshMainWindow();
             //NB: The methods addQuestionCard() and removeQuestionCard() are not called because this would result in notify() being called twice, slowing the operation down.
             
             //remove the old card from the list.
             RuntimeData.CurrentlyLoadedSubject.removeCard(oldCard);
-            MainWindow.removeFromCardMap(oldCard);
+            mainWindow.removeFromCardMap(oldCard);
 
             //adds the new card to the list.
             RuntimeData.CurrentlyLoadedSubject.addCard(newCard);
-            MainWindow.addToCardMap(newCard);
+            mainWindow.addToCardMap(newCard);
 
             RuntimeData.UnsavedChanges = true;
             notify();

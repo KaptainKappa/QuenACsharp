@@ -13,8 +13,11 @@ namespace QuenA
 {
     static class Program
     {
-       
-         
+
+
+        private static MainWindow mainWindow;
+        public static MainWindow MainWindow { get { return mainWindow; } }
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -22,21 +25,31 @@ namespace QuenA
         [STAThread]
         static void Main()
         {
+#if DEBUG
+
+            Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                mainWindow = new MainWindow();
+                Application.Run(mainWindow);
+           
+#else
             try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(MainWindow.Instance);
+                mainWindow = new MainWindow();
+                Application.Run(mainWindow);
             }
             catch (Exception ex)
             {
                 //Write ex.Message to a file
-                using (StreamWriter outfile = new StreamWriter(@".\error.txt"))
+                using (StreamWriter outfile = new StreamWriter(@".\error" + DateTime.Now.ToShortDateString() + DateTime.Now.ToShortTimeString() + ".txt"))
                 {
                     outfile.Write(ex.Message.ToString());
                 }
             }
-           
+#endif
+
         }
       
     }
