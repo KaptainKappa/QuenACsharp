@@ -176,18 +176,7 @@ namespace QuenA.ui
                 saveTopicAsToolStripMenuItem_Click(sender, e);
                 return;
             }
-
-            if (RuntimeData.UnsavedChanges == true)
-            {
-                if (promptUnsavedChanges())
-                {
-                    SubjectControl.saveSubject();
-                }
-            }
-            else
-            {
                 SubjectControl.saveSubject();
-            }
         }
 
         /// <summary>
