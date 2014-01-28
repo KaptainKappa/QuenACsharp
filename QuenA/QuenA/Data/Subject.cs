@@ -24,7 +24,7 @@ namespace QuenA.Data
         /// </summary>
         /// <param name="card">QuestionCard to add.</param>
         public void addCard(QuestionCard card) {
-            cards.Add(card);
+            cards.Add(card.FlavourText, card);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace QuenA.Data
         public bool removeCard(QuestionCard card) {
             if (checkForCard(card))  //card is present in the subject
             {
-                cards.Remove(card);
+                cards.Remove(card.FlavourText);
                 return true;
             }
             return false;
@@ -46,8 +46,9 @@ namespace QuenA.Data
         /// <param name="card">Card to check for</param>
         /// <returns>true if present in the subject, false if not</returns>
         public bool checkForCard(QuestionCard card) {
-            return cards.Contains(card);
+            return cards.ContainsKey(card.FlavourText);
         }
+
 
     }
 }

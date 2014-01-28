@@ -79,9 +79,14 @@ namespace QuenA.Data.Control
         /// <param name="card">The QuestionCard object to add.</param>
         public static void addQuestionCard(QuestionCard card) 
         {
-            RuntimeData.CurrentlyLoadedSubject.addCard(card);
+           
             if (MainWindow.addToCardMap(card))
             {
+                if (RuntimeData.CurrentlyLoadedSubject.checkForCard(card)) 
+                {
+                    RuntimeData.CurrentlyLoadedSubject.removeCard(card);
+                }
+                RuntimeData.CurrentlyLoadedSubject.addCard(card);
                 RuntimeData.UnsavedChanges = true;
                 notify();
             }

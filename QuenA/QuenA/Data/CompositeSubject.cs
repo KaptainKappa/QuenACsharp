@@ -17,16 +17,18 @@ namespace QuenA.Data
 
         public void addSubject(Subject subject) {
             if (!subjects.Contains(subject)) {
-                cards.AddRange(subject.Cards);
+                foreach (QuestionCard c in subject.Cards){
+                    cards.Add(c.FlavourText, c);
+                }
                 subjects.Add(subject);
             }
         }
 
         public void removeSubject(Subject subject) {
             if (subjects.Contains(subject)) {
-                foreach (QuestionCard c in cards) {
+                foreach (QuestionCard c in cards.Values) {
                     if (checkForPresence(subject, c)) {
-                        cards.Remove(c);
+                        cards.Remove(c.FlavourText);
                     }
                 }
                 subjects.Remove(subject);

@@ -252,7 +252,6 @@ namespace QuenA.ui
             else { return false; }
         }
 
-
         /// <summary>
         /// Creates a new blank project and sets it as the currently loaded one
         /// </summary>
