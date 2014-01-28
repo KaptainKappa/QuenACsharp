@@ -7,13 +7,14 @@ using QuenA.ui;
 using QuenA.Data;
 using RedWards.Patterns.Observer;
 using QuenA.Data.Control;
+using System.IO;
 
 namespace QuenA
 {
     static class Program
     {
        
-
+         
 
         /// <summary>
         /// The main entry point for the application.
@@ -21,9 +22,21 @@ namespace QuenA
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(MainWindow.Instance);
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(MainWindow.Instance);
+            }
+            catch (Exception ex)
+            {
+                //Write ex.Message to a file
+                using (StreamWriter outfile = new StreamWriter(@".\error.txt"))
+                {
+                    outfile.Write(ex.Message.ToString());
+                }
+            }
+           
         }
       
     }
