@@ -32,9 +32,10 @@
             this.splitContainerQuestion = new System.Windows.Forms.SplitContainer();
             this.questionText = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanelQuestion = new System.Windows.Forms.TableLayoutPanel();
-            this.imageLabelQuestion = new System.Windows.Forms.Label();
             this.imageThumbnailQuestion = new System.Windows.Forms.PictureBox();
             this.attachImageButtonQuestion = new System.Windows.Forms.Button();
+            this.imageLabelQuestion = new System.Windows.Forms.Label();
+            this.removeImageButtonQuestion = new System.Windows.Forms.Button();
             this.formattingBox = new System.Windows.Forms.GroupBox();
             this.underlineButton = new System.Windows.Forms.Button();
             this.italicsButton = new System.Windows.Forms.Button();
@@ -63,6 +64,7 @@
             this.imageLabelAnswer = new System.Windows.Forms.Label();
             this.imageThumbnailAnswer = new System.Windows.Forms.PictureBox();
             this.attachImageButtonAnswer = new System.Windows.Forms.Button();
+            this.removeImageButtonAnswer = new System.Windows.Forms.Button();
             this.questionBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerQuestion)).BeginInit();
             this.splitContainerQuestion.Panel1.SuspendLayout();
@@ -124,13 +126,15 @@
             // 
             // tableLayoutPanelQuestion
             // 
-            this.tableLayoutPanelQuestion.ColumnCount = 3;
+            this.tableLayoutPanelQuestion.ColumnCount = 4;
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelQuestion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299F));
             this.tableLayoutPanelQuestion.Controls.Add(this.imageThumbnailQuestion, 1, 0);
             this.tableLayoutPanelQuestion.Controls.Add(this.attachImageButtonQuestion, 2, 0);
             this.tableLayoutPanelQuestion.Controls.Add(this.imageLabelQuestion, 0, 0);
+            this.tableLayoutPanelQuestion.Controls.Add(this.removeImageButtonQuestion, 3, 0);
             this.tableLayoutPanelQuestion.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanelQuestion.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelQuestion.Name = "tableLayoutPanelQuestion";
@@ -138,16 +142,6 @@
             this.tableLayoutPanelQuestion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelQuestion.Size = new System.Drawing.Size(543, 96);
             this.tableLayoutPanelQuestion.TabIndex = 9;
-            // 
-            // imageLabelQuestion
-            // 
-            this.imageLabelQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.imageLabelQuestion.AutoSize = true;
-            this.imageLabelQuestion.Location = new System.Drawing.Point(3, 41);
-            this.imageLabelQuestion.Name = "imageLabelQuestion";
-            this.imageLabelQuestion.Size = new System.Drawing.Size(39, 13);
-            this.imageLabelQuestion.TabIndex = 0;
-            this.imageLabelQuestion.Text = "Image:";
             // 
             // imageThumbnailQuestion
             // 
@@ -169,6 +163,28 @@
             this.attachImageButtonQuestion.Text = "Attach Image...";
             this.attachImageButtonQuestion.UseVisualStyleBackColor = true;
             this.attachImageButtonQuestion.Click += new System.EventHandler(this.attachImageButton_Click);
+            // 
+            // imageLabelQuestion
+            // 
+            this.imageLabelQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.imageLabelQuestion.AutoSize = true;
+            this.imageLabelQuestion.Location = new System.Drawing.Point(3, 41);
+            this.imageLabelQuestion.Name = "imageLabelQuestion";
+            this.imageLabelQuestion.Size = new System.Drawing.Size(39, 13);
+            this.imageLabelQuestion.TabIndex = 0;
+            this.imageLabelQuestion.Text = "Image:";
+            // 
+            // removeImageButtonQuestion
+            // 
+            this.removeImageButtonQuestion.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.removeImageButtonQuestion.Location = new System.Drawing.Point(247, 36);
+            this.removeImageButtonQuestion.Name = "removeImageButtonQuestion";
+            this.removeImageButtonQuestion.Size = new System.Drawing.Size(90, 23);
+            this.removeImageButtonQuestion.TabIndex = 3;
+            this.removeImageButtonQuestion.Text = "Remove Image";
+            this.removeImageButtonQuestion.UseVisualStyleBackColor = true;
+            this.removeImageButtonQuestion.Visible = false;
+            this.removeImageButtonQuestion.Click += new System.EventHandler(this.removeImageButton_Click);
             // 
             // formattingBox
             // 
@@ -420,16 +436,19 @@
             this.answerText.Size = new System.Drawing.Size(543, 158);
             this.answerText.TabIndex = 1;
             this.answerText.Text = "";
+            this.answerText.Enter += new System.EventHandler(this.changeFocusedBox);
             // 
             // tableLayoutPanelAnswer
             // 
-            this.tableLayoutPanelAnswer.ColumnCount = 3;
+            this.tableLayoutPanelAnswer.ColumnCount = 4;
             this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelAnswer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299F));
             this.tableLayoutPanelAnswer.Controls.Add(this.imageLabelAnswer, 0, 0);
             this.tableLayoutPanelAnswer.Controls.Add(this.imageThumbnailAnswer, 1, 0);
             this.tableLayoutPanelAnswer.Controls.Add(this.attachImageButtonAnswer, 2, 0);
+            this.tableLayoutPanelAnswer.Controls.Add(this.removeImageButtonAnswer, 3, 0);
             this.tableLayoutPanelAnswer.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanelAnswer.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelAnswer.Name = "tableLayoutPanelAnswer";
@@ -468,6 +487,17 @@
             this.attachImageButtonAnswer.Text = "Attach Image...";
             this.attachImageButtonAnswer.UseVisualStyleBackColor = true;
             this.attachImageButtonAnswer.Click += new System.EventHandler(this.attachImageButton_Click);
+            // 
+            // removeImageButtonAnswer
+            // 
+            this.removeImageButtonAnswer.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.removeImageButtonAnswer.Location = new System.Drawing.Point(247, 36);
+            this.removeImageButtonAnswer.Name = "removeImageButtonAnswer";
+            this.removeImageButtonAnswer.Size = new System.Drawing.Size(90, 23);
+            this.removeImageButtonAnswer.TabIndex = 4;
+            this.removeImageButtonAnswer.Text = "Remove Image";
+            this.removeImageButtonAnswer.UseVisualStyleBackColor = true;
+            this.removeImageButtonAnswer.Visible = false;
             // 
             // AddQuestion
             // 
@@ -546,5 +576,7 @@
         private System.Windows.Forms.Label imageLabelAnswer;
         private System.Windows.Forms.PictureBox imageThumbnailAnswer;
         private System.Windows.Forms.Button attachImageButtonAnswer;
+        private System.Windows.Forms.Button removeImageButtonQuestion;
+        private System.Windows.Forms.Button removeImageButtonAnswer;
     }
 }

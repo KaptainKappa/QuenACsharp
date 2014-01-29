@@ -172,19 +172,67 @@ namespace QuenA.ui
         {
             if (imageDialog.ShowDialog() == DialogResult.OK)
             {
-                if (sender == attachImageButtonQuestion)
+
+                Button senderAsButton = sender as Button;
+
+                if (senderAsButton == attachImageButtonQuestion)
                 {
                     questionImageFull = Image.FromFile(imageDialog.FileName);
                 }
-                else if (sender == attachImageButtonAnswer)
+                else if (senderAsButton == attachImageButtonAnswer)
                 {
                     answerImageFull = Image.FromFile(imageDialog.FileName);
                 }
-
+                
+                toggleImageButtons(senderAsButton);
                 //put image thumbnail preview in the form
-                setPreviewImage(sender as Button);
+                setPreviewImage(senderAsButton);
+
+                
 
             }
+        }
+
+        private void toggleImageButtons(Button sender)
+        {
+            if (sender == attachImageButtonQuestion) 
+            {
+                if (!removeImageButtonQuestion.Visible)
+                {
+                    Debug.Assert(imageThumbnailQuestion.Image == null);
+
+                    removeImageButtonQuestion.Visible = true;
+                    attachImageButtonQuestion.Text = "Change Image...";
+                }
+            }
+
+            if (sender == attachImageButtonAnswer)
+            {
+                if (!removeImageButtonAnswer.Visible)
+                {
+                    Debug.Assert(imageThumbnailAnswer.Image == null);
+
+                    removeImageButtonAnswer.Visible = true;
+                    attachImageButtonAnswer.Text = "Change Image...";
+                }
+            }
+
+            if (sender == removeImageButtonQuestion) 
+            {
+                Debug.Assert(imageThumbnailQuestion != null);
+
+                removeImageButtonQuestion.Visible = false;
+                attachImageButtonQuestion.Text = "Add Image...";
+            }
+
+            if (sender == removeImageButtonAnswer)
+            {
+                Debug.Assert(imageThumbnailAnswer != null);
+
+                removeImageButtonAnswer.Visible = false;
+                attachImageButtonAnswer.Text = "Add Image...";
+            }
+
         }
 
         /// <summary>
@@ -240,6 +288,24 @@ namespace QuenA.ui
             }
         }
 
+        private void removeImageButton_Click(object sender, EventArgs e)
+        {
+            Button senderAsButton = sender as Button;
+
+            if (senderAsButton == removeImageButtonQuestion) 
+            {
+                questionImageFull = null;
+                imageThumbnailQuestion.Image = null;
+            }
+
+            if (senderAsButton == removeImageButtonAnswer)
+            {
+                answerImageFull = null;
+                imageThumbnailAnswer.Image = null;
+            }
+
+            toggleImageButtons(senderAsButton);
+        }
 
 
 
@@ -461,6 +527,8 @@ namespace QuenA.ui
                 }
             }
         }
+
+        
 
 
 
