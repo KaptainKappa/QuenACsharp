@@ -287,7 +287,7 @@ namespace QuenA.ui
             {
                 this.Text += "*";
             }
-            this.Text += " - Questions 'n' Answers";
+            this.Text += " - Questions 'n' Answers (0.90 Beta)";
 
             //update the list of questions in the question box
             RefreshWindow();

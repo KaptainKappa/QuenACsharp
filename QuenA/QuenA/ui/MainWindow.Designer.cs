@@ -226,7 +226,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "QuenA - Questions \'n\' Answers";
+            this.Text = "QuenA - Questions \'n\' Answers (0.90 Beta)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
