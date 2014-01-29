@@ -11,6 +11,8 @@ using QuenA.Data;
 using RedWards.Patterns.Observer;
 using QuenA.Data.Control;
 using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace QuenA.ui
 {
@@ -18,7 +20,11 @@ namespace QuenA.ui
     /// The main window of the application.  From here, one can create new subjects, save/open existing ones, and perform actions relating to the currently loaded subject.
     /// </summary>
     public partial class MainWindow : Form, IObserver
-    {    
+    {
+
+        //version info
+        private static Assembly assembly = Assembly.GetExecutingAssembly();
+        private static FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
 
         //Collection of all cards of the currently loaded subject.
         private Dictionary<string, QuestionCard> cardMap = new Dictionary<string, QuestionCard>();
@@ -38,7 +44,7 @@ namespace QuenA.ui
             //listen for any subject-related actions being performed
             SubjectControl.attach(this);
             questionList.DataSource = FlavourTextList;
-            RefreshWindow();
+            update();
 
             openFileDialog.Filter = "QuenA Files (*.que) | *.que";
             saveFileDialog.Filter = "QuenA Files (*.que) | *.que";
@@ -287,7 +293,13 @@ namespace QuenA.ui
             {
                 this.Text += "*";
             }
-            this.Text += " - Questions 'n' Answers (0.90 Beta)";
+
+            //get version info
+           
+            string version = fileVersionInfo.ProductVersion;
+
+            //set title bar
+            this.Text += " - Questions 'n' Answers (" + version + ")";
 
             //update the list of questions in the question box
             RefreshWindow();
