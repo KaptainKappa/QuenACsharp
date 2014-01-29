@@ -44,6 +44,7 @@ namespace QuenA.ui
             saveFileDialog.Filter = "QuenA Files (*.que) | *.que";
         }
 
+       
         /// <summary>
         /// Destructor for MainWindow class.  It removes an instance of this class from SubjectControl's list of observers.
         /// </summary>
@@ -191,6 +192,23 @@ namespace QuenA.ui
         }
 
         /// <summary>
+        /// If there are unsaved changes, prompts the user to confirm that they wish to quit and lose all unsaved changes. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (RuntimeData.UnsavedChanges)
+            {
+                var result = MessageBox.Show("You still have unsaved changes that will be lost.  Quit anyway?", "Confirm Exit",
+                             MessageBoxButtons.YesNo,
+                             MessageBoxIcon.Question);
+
+                e.Cancel = (result == DialogResult.No);
+            }
+        }
+
+        /// <summary>
         /// Exits the application.
         /// </summary>
         /// <param name="sender"></param>
@@ -328,5 +346,7 @@ namespace QuenA.ui
                 return false;
             }
         }
+
+       
     }
 }
