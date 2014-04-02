@@ -248,7 +248,7 @@ namespace QuenA.ui
         /// </summary>
         private void RefreshWindow()
         {
-            currentlyLoadedSubjectLabel.Text = RuntimeData.CurrentlyLoadedSubject.SubjectName;
+            currentlyLoadedSubjectLabel.Text = RuntimeData.CurrentlyLoadedSubjectFilePath;
 
             //force refresh of question list
             questionList.DataSource = null;
@@ -313,7 +313,7 @@ namespace QuenA.ui
         /// <summary>
         /// To be called when a new subject is loaded.  This method update the card map, so that the question cards of the new subject are displayed in the new window.
         /// </summary>
-        public void updateSubject()
+        public void updateSubjectCardList()
         {
             cardMap.Clear();
             foreach (QuestionCard qCard in RuntimeData.CurrentlyLoadedSubject.Cards) {
