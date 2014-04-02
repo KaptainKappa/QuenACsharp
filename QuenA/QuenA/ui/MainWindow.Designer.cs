@@ -223,6 +223,7 @@
             this.Controls.Add(this.addQuestionButton);
             this.Controls.Add(this.questionList);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainWindow";

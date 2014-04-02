@@ -87,7 +87,14 @@
     <Compile Include="Data\Subject.cs" />
     <Compile Include="Data\Control\SubjectFileIO.cs" />
     <Compile Include="Data\Control\SubjectControl.cs" />
+    <Compile Include="Data\Test.cs" />
     <Compile Include="RuntimeData.cs" />
+    <Compile Include="ui\TestQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\TestQuestion.Designer.cs">
+      <DependentUpon>TestQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="ui\About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +192,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tester\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

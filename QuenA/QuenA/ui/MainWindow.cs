@@ -177,11 +177,16 @@ namespace QuenA.ui
         /// <param name="e"></param>
         private void saveTopicToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RuntimeData.CurrentlyLoadedSubjectFilePath == null) {
+            string filePath = RuntimeData.CurrentlyLoadedSubjectFilePath;
+
+            if (filePath == null)
+            {
                 saveTopicAsToolStripMenuItem_Click(sender, e);
-                return;
             }
-                SubjectControl.saveSubject();
+            else
+            {
+                SubjectControl.saveSubject(filePath);
+            }
         }
 
         /// <summary>
